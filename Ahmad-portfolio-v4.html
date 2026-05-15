@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ahmad Afzal — WordPress Developer & Web Designer from Pakistan. 100+ projects." />
+  <title>Ahmad Afzal — Designer & Developer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+   AHMAD AFZAL PORTFOLIO v3
+   Awards-editorial · Lenis · GSAP word-reveals · Floema-style chapters
+================================================================ */
+
+    :root {
+      --bg: #F2EDE8;
+      --bg-dark: #0D0D0D;
+      --text: #1A1A1A;
+      --text-muted: #888;
+      --accent: #FF3300;
+      --accent-glow: rgba(255, 51, 0, .45);
+      --ease: cubic-bezier(.65, 0, .35, 1);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-heading: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-serif: 'Instrument Serif', serif;
+      --d-size: clamp(70px, 11vw, 170px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    html.lenis { height: auto; }
+    html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+    html.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    img { max-width: 100%; display: block; }
+
+    /* ================================================================
+       CURSOR
+    ================================================================ */
+    .cursor, .cursor-ring {
+      position: fixed; top: 0; left: 0; pointer-events: none;
+      z-index: 9999; mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+    }
+    .cursor { width: 10px; height: 10px; background: #fff; border-radius: 50%; transition: width .25s, height .25s, background .25s; }
+    .cursor-ring { width: 38px; height: 38px; border: 1px solid rgba(255,255,255,.5); border-radius: 50%; transition: width .3s, height .3s; }
+
+    @media (max-width: 900px) {
+      .cursor, .cursor-ring { display: none; }
+      * { cursor: auto !important; }
+    }
+
+    /* ================================================================
+       LOADER — pulse dot CENTERED between AHMAD · AFZAL
+    ================================================================ */
+    .loader {
+      position: fixed; inset: 0; background: #0A0A0A;
+      z-index: 9990; display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    .loader-rings { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+    .loader-ring {
+      position: absolute; border-radius: 50%; border: 1px solid rgba(255, 51, 0, .22);
+      top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+      animation: pulseRing 2.8s ease-out infinite;
+    }
+    .loader-ring:nth-child(1) { width: 200px; height: 200px; animation-delay: 0s; }
+    .loader-ring:nth-child(2) { width: 320px; height: 320px; animation-delay: .55s; }
+    .loader-ring:nth-child(3) { width: 460px; height: 460px; animation-delay: 1.1s; }
+    .loader-ring:nth-child(4) { width: 620px; height: 620px; animation-delay: 1.65s; }
+    @keyframes pulseRing {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: .9; }
+      60% { opacity: .22; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    }
+
+    .loader-center {
+      position: relative; display: flex; flex-direction: row; align-items: center;
+      gap: 28px; z-index: 2;
+    }
+    .loader-word {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 7vw, 96px);
+      color: var(--bg);
+      letter-spacing: .18em;
+      line-height: 1;
+      display: inline-block;
+      overflow: hidden;
+    }
+    .loader-word span { display: inline-block; will-change: transform; }
+    .loader-word.accent { color: var(--accent); }
+    .loader-dot {
+      width: 14px; height: 14px; background: var(--accent); border-radius: 50%;
+      animation: dotPulse 1.4s ease-in-out infinite;
+      box-shadow: 0 0 16px 5px rgba(255, 51, 0, .55);
+      flex-shrink: 0;
+    }
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 16px 5px rgba(255, 51, 0, .55); }
+      50% { transform: scale(1.8); box-shadow: 0 0 30px 12px rgba(255, 51, 0, .25); }
+    }
+    .loader-tagline {
+      font-family: var(--font-heading); font-size: 11px; letter-spacing: .42em;
+      text-transform: uppercase; color: rgba(242, 237, 232, .25);
+      margin-top: 22px; z-index: 2; position: absolute; bottom: 14%;
+    }
+    .loader-pct {
+      position: absolute; bottom: 40px; right: 48px;
+      font-family: var(--font-display); font-size: 13px;
+      color: rgba(242, 237, 232, .28); letter-spacing: .2em; z-index: 2;
+    }
+    .loader-counter-bar {
+      position: absolute; left: 48px; bottom: 46px;
+      width: 180px; height: 1px; background: rgba(242,237,232,.1); z-index: 2;
+    }
+    .loader-counter-bar i { display: block; width: 0; height: 100%; background: var(--accent); }
+
+    /* ================================================================
+       UTILITIES — split-text reveal (375.studio style)
+    ================================================================ */
+    .reveal-words .word {
+      display: inline-block; overflow: hidden; vertical-align: bottom;
+      margin-right: .22em;
+    }
+    .reveal-words .word i {
+      display: inline-block; font-style: inherit; transform: translateY(110%);
+      will-change: transform; opacity: 0;
+    }
+    .reveal-lines .line {
+      display: block; overflow: hidden;
+    }
+    .reveal-lines .line i {
+      display: inline-block; font-style: inherit; transform: translateY(110%);
+      will-change: transform; opacity: 0;
+    }
+    .char-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+    .char-mask > span { display: inline-block; transform: translateY(110%); will-change: transform; }
+
+    /* ================================================================
+       § 01 — HERO
+    ================================================================ */
+    #hero {
+      position: relative; width: 100vw; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; background: var(--bg);
+    }
+
+    .hero-hdr {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 38px 50px 0; z-index: 12;
+    }
+
+    .greet-wrap { display: flex; flex-direction: column; gap: 5px; }
+    .greet-label {
+      font-size: 11px; font-weight: 500; letter-spacing: .26em;
+      text-transform: uppercase; color: var(--text-muted); opacity: 0;
+    }
+    .greet-text {
+      font-family: var(--font-display); font-size: 26px;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text); min-width: 130px; min-height: 1.4em;
+      display: flex; align-items: center; gap: 3px;
+    }
+    .tcursor {
+      display: inline-block; width: 2px; height: .9em;
+      background: var(--text); vertical-align: middle;
+      animation: blink .7s step-end infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 1 } 50% { opacity: 0 } }
+
+    .hero-name { text-align: right; line-height: 1.05; }
+    .hero-name span {
+      display: block; font-family: var(--font-body); font-weight: 700;
+      font-size: 22px; letter-spacing: .24em; text-transform: uppercase;
+    }
+
+    .v-nav {
+      position: absolute; right: 46px; top: 50%;
+      transform: translateY(-50%); z-index: 12;
+      display: flex; flex-direction: column; align-items: center; gap: 30px;
+    }
+    .v-nav a {
+      font-size: 11.5px; font-weight: 600; letter-spacing: .26em;
+      text-transform: uppercase; color: var(--text-muted); text-decoration: none;
+      writing-mode: vertical-rl; transform: rotate(180deg);
+      transition: color .3s var(--ease); position: relative;
+    }
+    .v-nav a::after {
+      content: ''; position: absolute; left: 50%; bottom: -10px;
+      width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+      transform: translateX(-50%) scale(0); transition: transform .3s var(--ease);
+    }
+    .v-nav a:hover { color: var(--text); }
+    .v-nav a:hover::after { transform: translateX(-50%) scale(1); }
+
+    .d-stack {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); display: flex;
+      flex-direction: column; align-items: center; z-index: 4; pointer-events: none;
+    }
+    .d-row {
+      font-family: var(--font-display);
+      letter-spacing: -.012em; line-height: .82; text-align: center;
+      will-change: transform; user-select: none;
+    }
+    .d-row.r1 { font-size: var(--d-size); color: #C9C2BA; }
+    .d-row.r2 { font-size: calc(var(--d-size)*1.09); color: #B5ADA5; }
+    .d-row.r3 { font-size: calc(var(--d-size)*1.2); color: var(--text); }
+
+    /* === RED CIRCLE WITH PULSE RINGS === */
+    .circle-wrap {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); z-index: 6;
+      pointer-events: none; will-change: transform;
+    }
+    .red-circle {
+      width: clamp(260px, 30vw, 460px);
+      height: clamp(260px, 30vw, 460px);
+      border-radius: 50%;
+      border: clamp(8px, 1.1vw, 15px) solid var(--accent);
+      box-shadow: 0 0 32px 8px var(--accent-glow), 0 0 64px 16px rgba(255, 51, 0, .14), inset 0 0 28px 4px rgba(255, 51, 0, .07);
+      background: transparent;
+      position: relative;
+    }
+    .red-circle::before, .red-circle::after {
+      content: ''; position: absolute; inset: -2px;
+      border-radius: 50%; border: 2px solid var(--accent);
+      animation: heroPulse 3.2s ease-out infinite;
+      opacity: 0;
+    }
+    .red-circle::after { animation-delay: 1.6s; }
+    @keyframes heroPulse {
+      0% { transform: scale(1); opacity: .6; }
+      80% { opacity: .04; }
+      100% { transform: scale(1.55); opacity: 0; }
+    }
+    .red-circle .pulse-extra {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 1px solid var(--accent); opacity: 0;
+      animation: heroPulse 3.2s ease-out .8s infinite;
+    }
+
+    .model-wrap {
+      position: absolute; bottom: -15px; left: 49%;
+      transform: translateX(0%); z-index: 8;
+      pointer-events: none; display: flex; align-items: flex-end; justify-content: center;
+      will-change: transform, opacity;
+    }
+    .model-float { will-change: transform; animation: floatX 6s linear infinite, floatY 4s ease-in-out infinite; }
+    .model-img {
+      width: 600px; height: 600px; object-fit: contain; object-position: bottom center;
+      filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .16));
+      animation: modelSway 5.6s ease-in-out 1.4s infinite;
+    }
+    @keyframes floatX {
+      0% { transform: translateX(calc(-50% - 6px)) } 50% { transform: translateX(calc(-50% + 3px)) } 100% { transform: translateX(calc(-50% - 6px)) }
+    }
+    @keyframes floatY { 0% { translate: 0 0 } 50% { translate: 0 -10px } 100% { translate: 0 0 } }
+    @keyframes modelSway { 0%,100% { transform: rotate(0deg) } 50% { transform: rotate(1deg) } }
+
+    .tagline { position: absolute; bottom: 44px; left: 50px; z-index: 12; line-height: 1.45; }
+    .tagline .role, .tagline .origin {
+      display: block; font-size: 15px; font-weight: 400; letter-spacing: .05em; color: var(--text-muted);
+    }
+    .tagline .origin em { font-style: normal; color: var(--accent); font-weight: 700; }
+
+    .social { position: absolute; bottom: 44px; right: 50px; z-index: 12; display: flex; gap: 18px; }
+    .social a { color: var(--text-muted); transition: color .3s var(--ease), transform .3s var(--ease); }
+    .social a:hover { color: var(--accent); transform: translateY(-4px); }
+    .social svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .scroll-hint {
+      position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); z-index: 12;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .scroll-hint span { font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: var(--text-muted); }
+    .scroll-hint-line { width: 1px; height: 36px; background: rgba(26, 26, 26, .15); position: relative; overflow: hidden; }
+    .scroll-hint-line::after {
+      content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%;
+      background: var(--accent); animation: scrollSlide 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollSlide { 0% { top: -100% } 100% { top: 100% } }
+
+    /* ================================================================
+       § 02 — MANIFESTO  (DARK chapter — 375.studio narrative)
+    ================================================================ */
+    #manifesto {
+      background: var(--bg-dark);
+      color: #F2EDE8;
+      padding: 180px 60px 200px;
+      position: relative; overflow: hidden;
+    }
+    #manifesto::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 25% 30%, rgba(255,51,0,.08), transparent 38%),
+                  radial-gradient(circle at 80% 70%, rgba(255,51,0,.05), transparent 40%);
+      pointer-events: none;
+    }
+    .manifesto-bg-word {
+      position: absolute; left: -2vw; bottom: -2vw;
+      font-family: var(--font-display);
+      font-size: clamp(180px, 26vw, 380px);
+      color: transparent; -webkit-text-stroke: 1px rgba(242,237,232,.05);
+      pointer-events: none; user-select: none; line-height: .9; z-index: 0;
+      letter-spacing: -.02em;
+    }
+    .manifesto-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-heading); font-size: 11px; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 60px;
+      position: relative; z-index: 1;
+    }
+    .manifesto-eyebrow::before {
+      content: '01'; font-family: var(--font-display); font-size: 13px;
+      color: rgba(242,237,232,.28);
+    }
+    .manifesto-statement {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6.5vw, 110px);
+      line-height: .98; letter-spacing: -.005em;
+      color: #F2EDE8; max-width: 1500px;
+      position: relative; z-index: 1;
+    }
+    .manifesto-statement .ac { color: var(--accent); }
+    .manifesto-statement .italic { font-family: var(--font-serif); font-style: italic; font-size: .9em; letter-spacing: .005em; color: rgba(242,237,232,.85); }
+    .manifesto-footer {
+      margin-top: 90px; display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 40px; flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .manifesto-sign {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(22px, 2.4vw, 36px); color: rgba(242,237,232,.85);
+    }
+    .manifesto-meta {
+      font-family: var(--font-heading); font-size: 12px; letter-spacing: .22em;
+      text-transform: uppercase; color: rgba(242,237,232,.45);
+      text-align: right; line-height: 1.8;
+    }
+
+    /* ================================================================
+       § 03 — ABOUT  (light bg + stats)
+    ================================================================ */
+    #about {
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; padding: 140px 60px;
+      position: relative; overflow: hidden;
+    }
+    .about-flow-lines { position: absolute; inset: 0; pointer-events: none; opacity: 1; z-index: 0; }
+    .about-flow-lines svg { width: 100%; height: 100%; display: block; }
+    .about-line-base { fill: none; stroke: rgba(26, 26, 26, .06); stroke-width: 1; stroke-linecap: round; }
+    .about-line-progress {
+      fill: none; stroke: rgba(255, 51, 0, .40); stroke-width: 1.2; stroke-linecap: round;
+      filter: drop-shadow(0 0 6px rgba(255, 51, 0, .18));
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-heading); font-size: 12px; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 36px;
+      display: flex; align-items: center; gap: 14px; position: relative; z-index: 1;
+    }
+    .section-eyebrow::before {
+      content: attr(data-num); font-family: var(--font-display); font-size: 13px;
+      color: rgba(242, 237, 232, .26); letter-spacing: .2em;
+    }
+    #about .section-eyebrow::before { color: rgba(26,26,26,.26); }
+    .light .section-eyebrow::before { color: rgba(26,26,26,.26); }
+    #manifesto .section-eyebrow::before { color: rgba(242,237,232,.28); }
+
+    .about-headline, .skills-title, .works-title-big, .contact-big-head {
+      font-family: var(--font-display);
+      font-size: clamp(60px, 8vw, 130px) !important;
+      line-height: .92; letter-spacing: .02em;
+    }
+    .about-headline { color: var(--text); margin-bottom: 34px; position: relative; z-index: 1; }
+    .about-headline .ac { color: var(--accent); }
+
+    .about-grid {
+      display: grid; grid-template-columns: 1.1fr .9fr;
+      gap: 80px; align-items: start; position: relative; z-index: 1;
+    }
+    .about-bio {
+      font-size: clamp(15px, 1.1vw, 18px); font-weight: 300; line-height: 1.75;
+      color: rgba(26, 26, 26, .68); max-width: 560px; margin-bottom: 38px;
+    }
+    .about-bio strong { color: var(--text); font-weight: 500; }
+
+    .about-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .about-tag {
+      font-family: var(--font-heading); font-size: 12px; letter-spacing: .12em;
+      text-transform: uppercase; padding: 10px 20px;
+      border: 1px solid rgba(26, 26, 26, .14); border-radius: 100px;
+      color: rgba(26, 26, 26, .55); transition: all .35s var(--ease);
+    }
+    .about-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    .stat-row {
+      padding: 32px 0; border-bottom: 1px solid rgba(26, 26, 26, .1);
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 20px; position: relative; overflow: hidden;
+    }
+    .stat-row::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+      background: linear-gradient(90deg, rgba(255, 51, 0, .06), transparent);
+      transition: width .6s var(--ease);
+    }
+    .stat-row:hover::before { width: 100%; }
+    .stat-row:first-child { border-top: 1px solid rgba(26, 26, 26, .1); }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(64px, 8vw, 108px); color: var(--text);
+      line-height: 1; letter-spacing: -.02em; min-width: 160px;
+    }
+    .stat-num .ac { color: var(--accent); }
+    .stat-label {
+      font-family: var(--font-heading); font-size: clamp(13px, 1.1vw, 16px);
+      color: rgba(26, 26, 26, .55); line-height: 1.6;
+    }
+    .stat-badge {
+      font-family: var(--font-display); font-size: 11px;
+      letter-spacing: .28em; text-transform: uppercase;
+      padding: 7px 14px; border: 1px solid rgba(255, 51, 0, .3);
+      border-radius: 100px; color: var(--accent);
+      white-space: nowrap; opacity: .7; transition: opacity .3s;
+    }
+    .stat-row:hover .stat-badge { opacity: 1; }
+
+    .about-bg-word {
+      position: absolute; top: 60px; right: 60px;
+      font-family: var(--font-display);
+      font-size: clamp(120px, 18vw, 260px);
+      color: transparent; -webkit-text-stroke: 1px rgba(26, 26, 26, .05);
+      pointer-events: none; user-select: none; line-height: 1; z-index: 0;
+    }
+
+    /* ================================================================
+       § 04 — MARQUEE  (NEW — sticky tagline strip)
+    ================================================================ */
+    #marquee-strip {
+      background: var(--accent); color: #fff;
+      padding: 26px 0; overflow: hidden;
+      border-top: 1px solid rgba(0,0,0,.08);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+    }
+    .marquee-track {
+      display: flex; gap: 60px;
+      animation: marquee 28s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4.5vw, 64px);
+      letter-spacing: .04em; line-height: 1;
+      display: inline-flex; align-items: center; gap: 60px;
+    }
+    .marquee-item::after {
+      content: '✦'; color: rgba(255,255,255,.5); font-size: .6em;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ================================================================
+       § 05 — SKILLS  (pinned editorial reel)
+    ================================================================ */
+    #skills {
+      position: relative; height: 100vh;
+      background: radial-gradient(circle at 50% 28%, rgba(255, 51, 0, .14), transparent 28%), linear-gradient(180deg, #0D0D0D 0%, #121212 100%);
+      color: #F2EDE8; overflow: hidden;
+    }
+    .skills-shell {
+      position: relative; z-index: 1; width: 100%; height: 100%;
+      padding: 54px 60px 56px;
+      display: grid; grid-template-columns: .84fr 1.24fr .82fr;
+      gap: 30px; align-items: center;
+    }
+    .skills-intro { align-self: start; max-width: 360px; }
+    .skills-title { color: #F2EDE8; margin-top: 6px; margin-bottom: 24px; }
+    .skills-title .ac { color: var(--accent); }
+    .skills-copy { font-size: 14px; line-height: 1.7; color: rgba(242, 237, 232, .55); }
+
+    .skills-stage {
+      position: relative; height: 70vh; min-height: 460px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .skills-bg-active {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: clamp(140px, 22vw, 320px);
+      color: transparent; -webkit-text-stroke: 1px rgba(255, 51, 0, .15);
+      letter-spacing: .04em; user-select: none; pointer-events: none;
+      z-index: 0; white-space: nowrap;
+    }
+    .skills-track {
+      position: relative; width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .skill-item {
+      position: absolute; left: 50%; top: 50%;
+      width: clamp(280px, 36vw, 540px); padding: 26px 30px;
+      border: 1px solid rgba(242, 237, 232, .12);
+      border-radius: 18px;
+      background: rgba(13, 13, 13, .55); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: space-between;
+      transition: border-color .3s, background .3s;
+      will-change: transform, opacity, filter;
+    }
+    .skill-item.is-active { border-color: var(--accent); background: rgba(255, 51, 0, .06); }
+    .skill-item.is-hover { border-color: var(--accent); background: rgba(255, 51, 0, .1); }
+    .skill-label {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.8vw, 42px); letter-spacing: .04em;
+    }
+    .skill-item.is-active .skill-label, .skill-item.is-hover .skill-label { color: var(--accent); }
+    .skill-meta { font-family: var(--font-heading); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(242,237,232,.4); }
+
+    .skills-detail {
+      align-self: center; padding: 26px 30px;
+      border: 1px solid rgba(242, 237, 232, .1); border-radius: 18px;
+      background: rgba(13, 13, 13, .55); backdrop-filter: blur(8px);
+      max-width: 380px;
+    }
+    .skills-detail-kicker { font-family: var(--font-heading); font-size: 11px; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); }
+    .skills-detail-title { font-family: var(--font-display); font-size: clamp(24px, 2.6vw, 36px); margin: 14px 0 8px; letter-spacing: .04em; }
+    .skills-detail-meta { font-family: var(--font-heading); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(242,237,232,.4); margin-bottom: 14px; }
+    .skills-detail-copy { font-size: 14px; line-height: 1.7; color: rgba(242,237,232,.7); }
+
+    /* ================================================================
+       § 06 — WORKS  (HORIZONTAL pinned scroll — image on hover only)
+    ================================================================ */
+    #works {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      position: relative;
+    }
+    .works-header {
+      flex-shrink: 0;
+      padding: 44px 60px 28px;
+      display: flex; align-items: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(26, 26, 26, .08);
+    }
+    .works-title-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .works-title-big { color: var(--text); }
+    .works-eyebrow {
+      font-family: var(--font-heading); font-size: 11px; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--text-muted);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .works-eyebrow::before {
+      content: '04'; font-family: var(--font-display); font-size: 13px;
+      color: rgba(26,26,26,.18);
+    }
+    .works-progress-wrap { display: flex; align-items: center; gap: 14px; }
+    .works-progress-bar { width: 120px; height: 1px; background: rgba(26, 26, 26, .12); overflow: hidden; }
+    .works-progress-fill { height: 100%; width: 0%; background: var(--accent); transition: width .05s linear; }
+    .works-progress-label {
+      font-family: var(--font-display); font-size: 13px;
+      letter-spacing: .18em; color: var(--text-muted);
+    }
+
+    .works-body { flex: 1; overflow: hidden; display: flex; align-items: stretch; }
+    .works-track { display: flex; height: 100%; will-change: transform; }
+
+    /* Card — image is hidden by default, revealed on hover */
+    .wcard {
+      flex-shrink: 0;
+      width: clamp(300px, 34vw, 480px);
+      height: 100%;
+      border-right: 1px solid rgba(26, 26, 26, .08);
+      display: flex; flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+      background: var(--bg);
+      transition: background .45s var(--ease);
+    }
+    .wcard:first-child { margin-left: 60px; }
+
+    /* Image — absolute, hidden until hover */
+    .wcard-img-wrap {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 48%;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-12px) scale(1.02);
+      transition: opacity .55s var(--ease), transform .55s var(--ease);
+      pointer-events: none;
+    }
+    .wcard-img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: grayscale(15%) brightness(.92);
+      transition: filter .55s var(--ease), transform .9s var(--ease);
+    }
+    .wcard:hover .wcard-img-wrap {
+      opacity: 1; transform: translateY(0) scale(1);
+    }
+    .wcard:hover .wcard-img { filter: grayscale(0%) brightness(1); transform: scale(1.05); }
+    .wcard-img-wrap::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(13,13,13,.35));
+      pointer-events: none;
+    }
+
+    .wcard-content {
+      padding: 28px 38px 32px;
+      flex: 1;
+      display: flex; flex-direction: column; justify-content: flex-start;
+      position: relative; z-index: 2;
+      transition: padding .55s var(--ease);
+    }
+    .wcard:hover .wcard-content { padding-top: calc(48% + 24px); }
+
+    .wcard:hover { background: var(--bg-dark); }
+    .wcard:hover .wcard-num,
+    .wcard:hover .wcard-name,
+    .wcard:hover .wcard-cat,
+    .wcard:hover .wcard-yr { color: #F2EDE8; }
+    .wcard:hover .wcard-rule { border-color: rgba(242, 237, 232, .14); }
+    .wcard:hover .wcard-tag { border-color: rgba(242, 237, 232, .14); color: rgba(242, 237, 232, .55); }
+    .wcard:hover .wcard-link { opacity: 1; transform: translateY(0); }
+    .wcard:hover .wcard-bg { opacity: .035; color: #F2EDE8; }
+
+    .wcard-bg {
+      position: absolute; bottom: -14px; right: -6px;
+      font-family: var(--font-display);
+      font-size: clamp(80px, 12vw, 160px);
+      color: var(--text); opacity: .05; pointer-events: none;
+      user-select: none; line-height: 1; z-index: 1;
+      transition: opacity .45s, color .45s;
+    }
+    .wcard-top { display: flex; flex-direction: column; }
+    .wcard-num {
+      font-family: var(--font-display); font-size: 12px;
+      letter-spacing: .32em; color: var(--text-muted);
+      margin-bottom: 14px; transition: color .45s;
+    }
+    .wcard-rule {
+      border: none; border-top: 1px solid rgba(26, 26, 26, .1);
+      margin-bottom: 18px; transition: border-color .45s;
+    }
+    .wcard-name {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.4vw, 38px);
+      letter-spacing: .03em; color: var(--text);
+      line-height: 1.08; margin-bottom: 12px;
+      transition: color .45s;
+    }
+    .wcard-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .wcard-cat {
+      font-family: var(--font-heading); font-size: 12px;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-muted); transition: color .45s;
+    }
+    .wcard-yr {
+      font-family: var(--font-display); font-size: 15px;
+      letter-spacing: .1em; color: var(--text-muted);
+      transition: color .45s;
+    }
+    .wcard-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .wcard-tag {
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      padding: 6px 12px; border: 1px solid rgba(26, 26, 26, .12);
+      border-radius: 100px; color: var(--text-muted);
+      font-family: var(--font-heading); transition: all .45s;
+    }
+    .wcard-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-heading); font-size: 13px;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: #F2EDE8; text-decoration: none;
+      opacity: 0; transform: translateY(14px);
+      transition: opacity .45s var(--ease), transform .45s var(--ease);
+      cursor: none; margin-top: 16px;
+    }
+    .wcard-arrow {
+      font-size: 16px; color: var(--accent);
+      display: inline-block; transition: transform .3s var(--ease);
+    }
+    .wcard-link:hover .wcard-arrow { transform: translate(3px, -3px); }
+
+    .wcard-cta {
+      flex-shrink: 0;
+      width: clamp(220px, 24vw, 340px);
+      height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px; gap: 24px;
+    }
+    .wcard-cta a {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 18px;
+      text-decoration: none; cursor: none;
+    }
+    .cta-circle {
+      width: 96px; height: 96px; border-radius: 50%;
+      border: 1.5px solid rgba(26, 26, 26, .18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; color: var(--text);
+      transition: all .5s var(--ease);
+    }
+    .wcard-cta a:hover .cta-circle {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .cta-label {
+      font-family: var(--font-display); font-size: 14px;
+      letter-spacing: .24em; text-transform: uppercase;
+      color: var(--text-muted); text-align: center; line-height: 1.6;
+    }
+
+    /* ================================================================
+       § 07 — PROCESS  (pinned scroll — title fixed, steps scroll past)
+    ================================================================ */
+    #process {
+      background: var(--bg-dark); color: #F2EDE8;
+      padding: 0 60px;
+      position: relative;
+      overflow: visible;
+    }
+    .process-shell {
+      display: grid; grid-template-columns: .85fr 1.15fr; gap: 80px; align-items: start;
+      padding: 160px 0 200px;
+    }
+    .process-sticky {
+      position: sticky; top: 0;
+      align-self: start;
+      height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 60px 0;
+    }
+    .process-title {
+      font-family: var(--font-display);
+      font-size: clamp(60px, 8vw, 130px);
+      line-height: .92; letter-spacing: .02em; color: #F2EDE8;
+      margin-bottom: 24px;
+    }
+    .process-title .ac { color: var(--accent); }
+    .process-copy {
+      font-size: 14px; line-height: 1.7; color: rgba(242, 237, 232, .55);
+      max-width: 340px; margin-bottom: 40px;
+    }
+
+    /* Live step indicator inside sticky panel */
+    .process-indicator {
+      display: flex; flex-direction: column; gap: 10px; margin-top: 36px;
+    }
+    .process-indicator-item {
+      display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-heading); font-size: 11px; letter-spacing: .22em;
+      text-transform: uppercase; color: rgba(242,237,232,.22);
+      transition: color .4s var(--ease);
+      cursor: default;
+    }
+    .process-indicator-item .pi-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(242,237,232,.18); flex-shrink: 0;
+      transition: background .4s var(--ease), transform .4s var(--ease);
+    }
+    .process-indicator-item.is-active { color: rgba(242,237,232,.9); }
+    .process-indicator-item.is-active .pi-dot {
+      background: var(--accent); transform: scale(1.5);
+      box-shadow: 0 0 8px 2px var(--accent-glow);
+    }
+
+    .process-steps { display: flex; flex-direction: column; gap: 1px; }
+    .process-step {
+      padding: 80px 0; border-top: 1px solid rgba(242, 237, 232, .08);
+      display: grid; grid-template-columns: 80px 1fr; gap: 28px;
+      position: relative; min-height: 40vh;
+      transition: opacity .5s var(--ease);
+    }
+    .process-step:last-child { border-bottom: 1px solid rgba(242, 237, 232, .08); }
+    .process-step.step-dim { opacity: .32; }
+    .process-num {
+      font-family: var(--font-display); font-size: 14px;
+      letter-spacing: .26em; color: var(--accent); padding-top: 8px;
+    }
+    .process-step h3 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 44px);
+      letter-spacing: .02em; margin-bottom: 14px;
+    }
+    .process-step p {
+      font-size: 15px; line-height: 1.8;
+      color: rgba(242, 237, 232, .65); max-width: 540px;
+    }
+    .process-step-tag {
+      display: inline-block; margin-top: 20px;
+      font-family: var(--font-heading); font-size: 10px; letter-spacing: .3em;
+      text-transform: uppercase; color: var(--accent);
+      border: 1px solid rgba(255,51,0,.3); border-radius: 100px;
+      padding: 5px 14px;
+    }
+
+
+    /* ================================================================
+       § 09 — CONTACT  (light background variant)
+    ================================================================ */
+    #contact {
+      background: var(--bg); color: var(--text);
+      padding: 140px 60px 70px;
+      position: relative; overflow: hidden;
+    }
+    .contact-deco-bg {
+      position: absolute; top: 50px; left: 0; right: 0;
+      font-family: var(--font-display);
+      font-size: clamp(200px, 32vw, 480px);
+      color: transparent; -webkit-text-stroke: 1px rgba(255, 51, 0, .08);
+      pointer-events: none; user-select: none; text-align: center;
+      line-height: .9; z-index: 0;
+    }
+    .contact-big-head { color: var(--text); margin-top: 16px; margin-bottom: 22px; position: relative; z-index: 1; }
+    .contact-big-head .stroke {
+      color: transparent;
+      -webkit-text-stroke: 0.6px rgba(255, 51, 0, .85);
+      font-weight: 300;
+    }
+    .contact-sub { font-size: 15px; line-height: 1.7; color: rgba(26,26,26,.6); margin-bottom: 60px; position: relative; z-index: 1; max-width: 480px; }
+    .contact-layout {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 80px; align-items: start;
+      position: relative; z-index: 1;
+    }
+    .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 40px; }
+    .contact-cell { padding: 24px 0; border-bottom: 1px solid rgba(26,26,26,.1); }
+    .contact-cell-label { font-family: var(--font-heading); font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: rgba(26,26,26,.5); margin-bottom: 10px; }
+    .contact-cell-val { font-family: var(--font-display); font-size: clamp(18px, 1.8vw, 26px); color: var(--text); text-decoration: none; letter-spacing: .04em; display: block; }
+    a.contact-cell-val:hover { color: var(--accent); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group label {
+      display: block; font-family: var(--font-heading);
+      font-size: 11px; letter-spacing: .26em; text-transform: uppercase;
+      color: rgba(26,26,26,.55); margin-bottom: 10px;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 14px 0;
+      background: transparent; border: none;
+      border-bottom: 1px solid rgba(26,26,26,.2);
+      color: var(--text); font-family: var(--font-body); font-size: 15px;
+      outline: none; transition: border-color .3s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(26,26,26,.35); }
+    .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--accent); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 32px; margin-top: 14px;
+      background: var(--accent); border: none;
+      color: #fff; font-family: var(--font-heading); font-size: 12px;
+      letter-spacing: .26em; text-transform: uppercase;
+      cursor: pointer; transition: all .35s var(--ease);
+      border-radius: 100px;
+    }
+    .form-submit:hover { background: var(--bg-dark); color: #fff; }
+    .form-submit svg { width: 16px; height: 16px; fill: currentColor; }
+    .form-note { font-size: 11px; color: rgba(26,26,26,.5); letter-spacing: .1em; }
+
+    .form-success {
+      display: none; padding: 30px; text-align: center;
+      background: rgba(255, 51, 0, .08); border-radius: 14px;
+      color: var(--text);
+    }
+    .form-success span { font-size: 36px; display: block; margin-bottom: 10px; }
+
+    .contact-footer {
+      margin-top: 100px; padding-top: 30px;
+      border-top: 1px solid rgba(26,26,26,.1);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+      position: relative; z-index: 1;
+    }
+    .contact-copy { font-size: 12px; color: rgba(26,26,26,.5); letter-spacing: .14em; }
+    .contact-avail { font-family: var(--font-display); font-size: 12px; letter-spacing: .3em; color: var(--accent); }
+    .contact-avail::before {
+      content: '●'; margin-right: 10px; color: #00aa55;
+      animation: dotPulse2 1.6s ease-in-out infinite;
+    }
+    @keyframes dotPulse2 { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+
+    /* ================================================================
+       RESPONSIVE
+    ================================================================ */
+    @media (max-width: 1100px) {
+      .skills-shell { grid-template-columns: 1fr; gap: 24px; padding: 80px 30px 30px; }
+      .skills-intro { max-width: none; }
+      .skills-stage { height: 40vh; }
+      .skills-detail { max-width: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 60px; }
+      .process-shell { grid-template-columns: 1fr; }
+      .process-sticky { position: relative; top: 0; }
+      .contact-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      #hero, #manifesto, #about, #process, #contact { padding: 100px 24px; }
+      .hero-hdr { padding: 24px 24px 0; }
+      .tagline, .social, .scroll-hint { left: 24px; right: 24px; bottom: 24px; }
+      .v-nav { right: 18px; gap: 18px; }
+      .model-img { width: 380px; height: 380px; }
+      .works-header { padding: 24px 24px 16px; flex-direction: column; align-items: flex-start; gap: 16px; }
+      .wcard:first-child { margin-left: 24px; }
+      .wcard { width: 78vw; }
+      .contact-row { grid-template-columns: 1fr; gap: 0; }
+      .form-row { grid-template-columns: 1fr; }
+      .loader-center { gap: 16px; }
+      .manifesto-statement { font-size: 38px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cur" aria-hidden="true"></div>
+  <div class="cursor-ring" id="curR" aria-hidden="true"></div>
+
+  <!-- ════════════════════════
+     LOADER — pulse dot CENTERED between AHMAD · AFZAL
+  ════════════════════════ -->
+  <div class="loader" id="loader">
+    <div class="loader-rings" aria-hidden="true">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+    </div>
+    <div class="loader-center">
+      <div class="loader-word"><span id="lWordA">AHMAD</span></div>
+      <div class="loader-dot" id="loaderDot"></div>
+      <div class="loader-word accent"><span id="lWordB">AFZAL</span></div>
+    </div>
+    <div class="loader-tagline">Developer · Designer · Creator</div>
+    <div class="loader-counter-bar"><i id="lBar"></i></div>
+    <span class="loader-pct" id="lPct">0%</span>
+  </div>
+
+  <!-- ════════════════════════
+     § 01 — HERO
+  ════════════════════════ -->
+  <section id="hero">
+    <header class="hero-hdr">
+      <div class="greet-wrap">
+        <span class="greet-label">Greeting</span>
+        <span class="greet-text" id="greetEl">HOLA<span class="tcursor"></span></span>
+      </div>
+      <div class="hero-name">
+        <span class="char-mask"><span>AHMAD</span></span>
+        <span class="char-mask"><span>AFZAL</span></span>
+      </div>
+    </header>
+
+    <nav class="v-nav" aria-label="Navigation">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#works">Works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="d-stack" aria-hidden="true">
+      <span class="d-row r1">DEVELOPER</span>
+      <span class="d-row r2">DEVELOPER</span>
+      <span class="d-row r3">DEVELOPER</span>
+    </div>
+
+    <div class="circle-wrap" id="circleWrap">
+      <div class="red-circle" id="redCircle">
+        <span class="pulse-extra"></span>
+      </div>
+    </div>
+
+    <div class="model-wrap" id="modelWrap">
+      <div class="model-float" id="modelFloat">
+        <img class="model-img" id="modelImg" src="assets/images/anime.png" alt="Ahmad Afzal 3D avatar" draggable="false"
+          loading="eager" onerror="this.style.display='none'" />
+      </div>
+    </div>
+
+    <div class="tagline">
+      <span class="role">Creative Web Developer</span>
+      <span class="origin">From <em>PK</em></span>
+    </div>
+
+    <div class="social" role="navigation" aria-label="Social links">
+      <a href="/cdn-cgi/l/email-protection#65040d080401070c0b04031f0409250208040c094b060a08" aria-label="Email">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" /></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/ahmadafzal" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+      </a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Fiverr">
+        <svg viewBox="0 0 24 24"><path d="M23.004 15.588a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm-.996-3.705h-1.242c-.705 0-1.156.373-1.156.9v.041h-.049a2.672 2.672 0 0 0-2.668-2.668 2.672 2.672 0 0 0-2.667 2.668.995.995 0 1 1-1.99 0v-.041c0-.527-.452-.9-1.156-.9h-1.242v1.49h.748v3.294h1.49v-3.295h.502a4.16 4.16 0 0 0 4.315 3.295 4.16 4.16 0 0 0 4.314-3.295h.501v3.295h1.49v-3.295h.748v-1.49zm-5.115 3.295a1.68 1.68 0 0 1-1.678-1.677 1.68 1.68 0 0 1 1.678-1.677 1.68 1.68 0 0 1 1.678 1.677 1.68 1.68 0 0 1-1.678 1.677zM0 15.588h1.49v-8.04H0v8.04zm2.981-4.9v4.9h1.49v-4.9H2.98zm.745-2.45a.995.995 0 1 0 .002-1.99.995.995 0 0 0-.002 1.99zm2.24 2.45v4.9h1.49v-2.45c0-.829.672-1.5 1.5-1.5s1.5.671 1.5 1.5v2.45h1.49v-2.948c0-1.518-1.232-2.75-2.75-2.75-.897 0-1.69.433-2.193 1.099l-.049-.9H5.966v.599z" /></svg>
+      </a>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-hint-line"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+     § 02 — MANIFESTO  (NEW — 375.studio-style word reveal)
+  ════════════════════════ -->
+  <section id="manifesto">
+    <div class="manifesto-bg-word" aria-hidden="true">CRAFT</div>
+    <div class="manifesto-eyebrow">The Approach</div>
+    <h2 class="manifesto-statement reveal-words" data-reveal="words" data-reveal-mode="scrub">
+      Not just websites — <span class="italic">experiences</span> that convert, hit
+      <span class="ac">different</span>, and make your competitors <span class="italic">nervous</span>.
+    </h2>
+    <div class="manifesto-footer">
+      <div class="manifesto-sign reveal-words" data-reveal="words" data-reveal-mode="scrub">— Ahmad, in his era since 2019</div>
+      <div class="manifesto-meta">
+        Islamabad, PK<br>
+        Available Worldwide
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+     § 03 — ABOUT
+  ════════════════════════ -->
+  <section id="about">
+    <div class="about-bg-word" aria-hidden="true">DEV</div>
+
+    <div class="about-flow-lines" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <path class="about-line-base" d="M -80 250 C 160 120, 300 420, 520 300 S 860 120, 1080 300 S 1360 500, 1540 360" />
+        <path class="about-line-base" d="M -120 620 C 140 430, 360 820, 620 640 S 980 430, 1220 620 S 1440 820, 1640 640" />
+        <path class="about-line-progress js-about-line" d="M -80 250 C 160 120, 300 420, 520 300 S 860 120, 1080 300 S 1360 500, 1540 360" />
+        <path class="about-line-progress js-about-line" d="M -120 620 C 140 430, 360 820, 620 640 S 980 430, 1220 620 S 1440 820, 1640 640" />
+      </svg>
+    </div>
+
+    <div class="section-eyebrow" data-num="02">About me</div>
+
+    <div class="about-grid">
+      <div class="about-left">
+        <h2 class="about-headline reveal-lines" data-reveal="lines" data-reveal-mode="scrub">
+          <span class="line">CRAFTING</span>
+          <span class="line"><span class="ac">DIGITAL</span></span>
+          <span class="line">STUFF.</span>
+        </h2>
+        <p class="about-bio">
+          I'm Ahmad — a <strong>WordPress Developer & Web Designer</strong> from Islamabad, PK.
+          Currently building at <strong>Translations Empire</strong> while running a
+          <strong>freelance practice since 2019</strong>.<br><br>
+          Lowkey obsessed with sites that convert. From pixel-perfect Figma designs to
+          GSAP-animated WordPress builds — I turn visions into digital realities that actually
+          <strong>slap</strong>. Oh, and I built a full Web3 freelancing DApp (Zyroks) for my thesis. No big deal.
+        </p>
+        <div class="about-tags">
+          <span class="about-tag">WordPress</span>
+          <span class="about-tag">SEO</span>
+          <span class="about-tag">JavaScript</span>
+          <span class="about-tag">PHP</span>
+          <span class="about-tag">React</span>
+          <span class="about-tag">Tailwind</span>
+          <span class="about-tag">Figma</span>
+          <span class="about-tag">Adobe XD</span>
+        </div>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-row">
+          <div class="stat-num"><span class="n" data-target="100">0</span><span class="ac">+</span></div>
+          <div class="stat-label">Projects<br>Delivered Globally</div>
+          <span class="stat-badge">Fiverr · Worldwide</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num"><span class="n" data-target="5">0</span><span class="ac">+</span></div>
+          <div class="stat-label">Years of<br>Active Experience</div>
+          <span class="stat-badge">Since 2019</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num"><span class="n" data-target="30">0</span><span class="ac">%</span></div>
+          <div class="stat-label">Average Traffic<br>Retention Uplift</div>
+          <span class="stat-badge">Proven Results</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num"><span class="n" data-target="19">0</span><span class="ac">%</span></div>
+          <div class="stat-label">Conversion Rate<br>Improvement</div>
+          <span class="stat-badge">Client Metrics</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+     § 04 — MARQUEE STRIP
+  ════════════════════════ -->
+  <div id="marquee-strip" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">WORDPRESS</span>
+      <span class="marquee-item">DESIGN SYSTEMS</span>
+      <span class="marquee-item">MOTION</span>
+      <span class="marquee-item">SEO</span>
+      <span class="marquee-item">E-COMMERCE</span>
+      <span class="marquee-item">FIGMA → BUILD</span>
+      <span class="marquee-item">WORDPRESS</span>
+      <span class="marquee-item">DESIGN SYSTEMS</span>
+      <span class="marquee-item">MOTION</span>
+      <span class="marquee-item">SEO</span>
+      <span class="marquee-item">E-COMMERCE</span>
+      <span class="marquee-item">FIGMA → BUILD</span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════
+     § 05 — SKILLS (pinned)
+  ════════════════════════ -->
+  <section id="skills">
+    <div class="skills-shell">
+      <div class="skills-intro">
+        <div class="section-eyebrow" data-num="03">Core skills</div>
+        <h2 class="skills-title reveal-lines" data-reveal="lines" data-reveal-mode="scrub">
+          <span class="line">SCROLL</span>
+          <span class="line"><span class="ac">THROUGH</span></span>
+          <span class="line">MY STACK.</span>
+        </h2>
+        <p class="skills-copy">
+          A motion-led skills reel — each specialty slides into centre, lights up, and reveals exactly what I bring to the table. No fluff, just the real stack.
+        </p>
+      </div>
+
+      <div class="skills-stage" id="skillsStage">
+        <div class="skills-bg-active" id="skillsBgWord">WORDPRESS</div>
+        <div class="skills-track" id="skillsTrack">
+          <article class="skill-item is-active" data-title="WordPress Development" data-bg="WORDPRESS"
+            data-meta="5+ years · 100+ launches"
+            data-desc="I build responsive WordPress websites that feel premium, load fast, and stay easy for clients to manage. Core of my freelance and agency work across business, portfolio, and marketing sites.">
+            <span class="skill-label">WordPress</span>
+            <span class="skill-meta">Core stack</span>
+          </article>
+          <article class="skill-item" data-title="Elementor, Divi & WPBakery" data-bg="BUILDERS"
+            data-meta="Agency-ready systems"
+            data-desc="I turn designs into flexible page-builder systems using Elementor, Divi, and WPBakery — keeping sections editable without sacrificing layout quality or brand consistency.">
+            <span class="skill-label">Elementor / Divi</span>
+            <span class="skill-meta">Builder workflows</span>
+          </article>
+          <article class="skill-item" data-title="Front-End Motion & UI" data-bg="MOTION"
+            data-meta="HTML · CSS · JS · GSAP"
+            data-desc="From polished hover states to scroll storytelling, I use HTML, CSS, JavaScript, Tailwind, and GSAP to make interfaces feel modern, smooth, and intentionally designed — not generic.">
+            <span class="skill-label">Front-End Motion</span>
+            <span class="skill-meta">Interactive feel</span>
+          </article>
+          <article class="skill-item" data-title="SEO & Performance" data-bg="SEO" data-meta="Search + speed thinking"
+            data-desc="I don't just build pages — I shape them for visibility. My workflow includes SEO-minded structure, content hierarchy, and WordPress optimization that supports traffic and conversions.">
+            <span class="skill-label">SEO & Performance</span>
+            <span class="skill-meta">Growth focused</span>
+          </article>
+          <article class="skill-item" data-title="Figma to Website" data-bg="UI/UX" data-meta="Design to build bridge"
+            data-desc="I translate Figma and Adobe XD concepts into production-ready interfaces with careful spacing, responsive behavior, and visual polish that keeps the final site true to the original design intent.">
+            <span class="skill-label">UI / UX to Build</span>
+            <span class="skill-meta">Figma / Adobe XD</span>
+          </article>
+          <article class="skill-item" data-title="E-Commerce & Client Delivery" data-bg="CLIENT"
+            data-meta="WooCommerce + freelance ops"
+            data-desc="With 100+ projects and long-term freelance experience, I know how to ship cleanly, communicate clearly, and build websites that support real business goals — storefronts, service sites, and custom solutions.">
+            <span class="skill-label">Client Delivery</span>
+            <span class="skill-meta">100+ shipped</span>
+          </article>
+        </div>
+      </div>
+
+      <aside class="skills-detail" id="skillsDetail">
+        <span class="skills-detail-kicker">Skill in focus</span>
+        <h3 class="skills-detail-title" id="skillsDetailTitle">WordPress Development</h3>
+        <div class="skills-detail-meta" id="skillsDetailMeta">5+ years · 100+ launches</div>
+        <p class="skills-detail-copy" id="skillsDetailCopy">
+          I build responsive WordPress websites that feel premium, load fast, and stay easy for clients to manage.
+          This is the core of my freelance and agency work.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+     § 06 — WORKS  (horizontal pinned scroll — image on hover only)
+  ════════════════════════ -->
+  <section id="works">
+    <div class="works-header">
+      <div class="works-title-wrap">
+        <div class="works-eyebrow">Selected Works</div>
+        <h2 class="works-title-big reveal-lines" data-reveal="lines" data-reveal-mode="scrub">
+          <span class="line">PORTFOLIO</span>
+        </h2>
+      </div>
+      <div class="works-progress-wrap">
+        <div class="works-progress-bar">
+          <div class="works-progress-fill" id="wProg"></div>
+        </div>
+        <span class="works-progress-label">06 PROJECTS</span>
+      </div>
+    </div>
+
+    <div class="works-body">
+      <div class="works-track" id="worksTrack">
+
+        <!-- 01 -->
+        <div class="wcard">
+          <div class="wcard-img-wrap">
+            <img class="wcard-img" src="assets/images/van.png" alt="Lebattant Des Lames" loading="lazy" onerror="this.parentElement.style.display='none'" />
+          </div>
+          <div class="wcard-content">
+            <div class="wcard-bg" aria-hidden="true">01</div>
+            <div class="wcard-top">
+              <span class="wcard-num">01 / 06</span>
+              <hr class="wcard-rule">
+              <h3 class="wcard-name">LEBATTANT DES LAMES</h3>
+              <div class="wcard-meta">
+                <span class="wcard-cat">WordPress · E-Commerce</span>
+                <span class="wcard-yr">2024</span>
+              </div>
+              <div class="wcard-tags">
+                <span class="wcard-tag">WordPress</span>
+                <span class="wcard-tag">WooCommerce</span>
+                <span class="wcard-tag">Figma</span>
+              </div>
+            </div>
+            <div>
+              <a href="https://lebattantdeslames.com" target="_blank" rel="noopener" class="wcard-link">View Project <span class="wcard-arrow">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="wcard">
+          <div class="wcard-img-wrap">
+            <img class="wcard-img" src="assets/images/translation.png" alt="Xelexip" loading="lazy" onerror="this.parentElement.style.display='none'" />
+          </div>
+          <div class="wcard-content">
+            <div class="wcard-bg" aria-hidden="true">02</div>
+            <div class="wcard-top">
+              <span class="wcard-num">02 / 06</span>
+              <hr class="wcard-rule">
+              <h3 class="wcard-name">XELEXIP</h3>
+              <div class="wcard-meta">
+                <span class="wcard-cat">WordPress · Business</span>
+                <span class="wcard-yr">2024</span>
+              </div>
+              <div class="wcard-tags">
+                <span class="wcard-tag">WordPress</span>
+                <span class="wcard-tag">PHP</span>
+                <span class="wcard-tag">Custom CSS</span>
+              </div>
+            </div>
+            <div>
+              <a href="https://xelexip.com" target="_blank" rel="noopener" class="wcard-link">View Project <span class="wcard-arrow">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="wcard">
+          <div class="wcard-img-wrap">
+            <img class="wcard-img" src="assets/images/chrisel.png" alt="Bchill Music" loading="lazy" onerror="this.parentElement.style.display='none'" />
+          </div>
+          <div class="wcard-content">
+            <div class="wcard-bg" aria-hidden="true">03</div>
+            <div class="wcard-top">
+              <span class="wcard-num">03 / 06</span>
+              <hr class="wcard-rule">
+              <h3 class="wcard-name">BCHILL MUSIC</h3>
+              <div class="wcard-meta">
+                <span class="wcard-cat">WordPress · Music</span>
+                <span class="wcard-yr">2023</span>
+              </div>
+              <div class="wcard-tags">
+                <span class="wcard-tag">WordPress</span>
+                <span class="wcard-tag">Custom Theme</span>
+                <span class="wcard-tag">GSAP</span>
+              </div>
+            </div>
+            <div>
+              <a href="https://bchillmusic.com" target="_blank" rel="noopener" class="wcard-link">View Project <span class="wcard-arrow">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="wcard">
+          <div class="wcard-img-wrap">
+            <img class="wcard-img" src="assets/images/bchill.png" alt="Chrisel Mouton" loading="lazy" onerror="this.parentElement.style.display='none'" />
+          </div>
+          <div class="wcard-content">
+            <div class="wcard-bg" aria-hidden="true">04</div>
+            <div class="wcard-top">
+              <span class="wcard-num">04 / 06</span>
+              <hr class="wcard-rule">
+              <h3 class="wcard-name">CHRISEL MOUTON</h3>
+              <div class="wcard-meta">
+                <span class="wcard-cat">WordPress · Portfolio</span>
+                <span class="wcard-yr">2023</span>
+              </div>
+              <div class="wcard-tags">
+                <span class="wcard-tag">WordPress</span>
+                <span class="wcard-tag">Figma</span>
+                <span class="wcard-tag">SEO</span>
+              </div>
+            </div>
+            <div>
+              <a href="https://chriselmouton.com" target="_blank" rel="noopener" class="wcard-link">View Project <span class="wcard-arrow">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 -->
+        <div class="wcard">
+          <div class="wcard-img-wrap">
+            <img class="wcard-img" src="assets/images/lebattant.png" alt="Drive Collective" loading="lazy" onerror="this.parentElement.style.display='none'" />
+          </div>
+          <div class="wcard-content">
+            <div class="wcard-bg" aria-hidden="true">05</div>
+            <div class="wcard-top">
+              <span class="wcard-num">05 / 06</span>
+              <hr class="wcard-rule">
+              <h3 class="wcard-name">DRIVE COLLECTIVE</h3>
+              <div class="wcard-meta">
+                <span class="wcard-cat">WordPress · Automotive</span>
+                <span class="wcard-yr">2024</span>
+              </div>
+              <div class="wcard-tags">
+                <span class="wcard-tag">WordPress</span>
+                <span class="wcard-tag">PHP</span>
+                <span class="wcard-tag">SEO</span>
+              </div>
+            </div>
+            <div>
+              <a href="https://drivecollective.co.uk" target="_blank" rel="noopener" class="wcard-link">View Project <span class="wcard-arrow">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 -->
+        <div class="wcard">
+          <div class="wcard-content">
+            <div class="wcard-bg" aria-hidden="true">06</div>
+            <div class="wcard-top">
+              <span class="wcard-num">06 / 06</span>
+              <hr class="wcard-rule">
+              <h3 class="wcard-name">ZYROKS <em style="font-family:var(--font-serif); font-style:italic; font-size:.55em; color:var(--accent); letter-spacing:.05em;">(FYP)</em></h3>
+              <div class="wcard-meta">
+                <span class="wcard-cat">DApp · Blockchain</span>
+                <span class="wcard-yr">2025</span>
+              </div>
+              <div class="wcard-tags">
+                <span class="wcard-tag">React</span>
+                <span class="wcard-tag">Solidity</span>
+                <span class="wcard-tag">Web3.js</span>
+                <span class="wcard-tag">IPFS</span>
+              </div>
+            </div>
+            <div>
+              <a href="#contact" class="wcard-link">FYP — Ask me <span class="wcard-arrow">↗</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA end -->
+        <div class="wcard-cta">
+          <a href="#contact">
+            <div class="cta-circle">↗</div>
+            <span class="cta-label">Start a<br>Project</span>
+          </a>
+        </div>
+
+      </div><!-- /works-track -->
+    </div><!-- /works-body -->
+  </section>
+
+  <!-- ════════════════════════
+     § 07 — PROCESS (pinned scroll — title fixed, steps scroll past)
+  ════════════════════════ -->
+  <section id="process">
+    <div class="process-shell">
+      <div class="process-sticky" id="processSticky">
+        <div class="section-eyebrow" data-num="05">How I work</div>
+        <h2 class="process-title reveal-lines" data-reveal="lines" data-reveal-mode="scrub">
+          <span class="line">FROM</span>
+          <span class="line"><span class="ac">IDEA</span></span>
+          <span class="line">TO LAUNCH.</span>
+        </h2>
+        <p class="process-copy">
+          A four-step rhythm I follow on every build — focused, collaborative, and obsessive about the details that make a website feel premium.
+        </p>
+        <div class="process-indicator" id="processIndicator">
+          <div class="process-indicator-item is-active" data-step="0"><span class="pi-dot"></span>Discover &amp; Map</div>
+          <div class="process-indicator-item" data-step="1"><span class="pi-dot"></span>Design with Intent</div>
+          <div class="process-indicator-item" data-step="2"><span class="pi-dot"></span>Build &amp; Animate</div>
+          <div class="process-indicator-item" data-step="3"><span class="pi-dot"></span>Launch &amp; Support</div>
+        </div>
+      </div>
+
+      <div class="process-steps" id="processSteps">
+        <div class="process-step" data-step="0">
+          <div class="process-num">01</div>
+          <div>
+            <h3>Discover & Map</h3>
+            <p>No random vibes here. I deep-dive into your business, your audience, and what actually moves the needle — before a single pixel gets touched. Clarity isn't a nice-to-have, it's the whole foundation.</p>
+            <span class="process-step-tag">Strategy first</span>
+          </div>
+        </div>
+        <div class="process-step" data-step="1">
+          <div class="process-num">02</div>
+          <div>
+            <h3>Design with Intent</h3>
+            <p>Figma open, ego closed. Every layout decision is intentional — hierarchy that guides the eye, typography that hits different, and conversion paths that don't feel like dark patterns. Your brand brief stays on the wall the entire time.</p>
+            <span class="process-step-tag">Figma to wireframe</span>
+          </div>
+        </div>
+        <div class="process-step" data-step="2">
+          <div class="process-num">03</div>
+          <div>
+            <h3>Build & Animate</h3>
+            <p>This is where it gets unreal. WordPress custom themes, GSAP-driven motion that feels alive, and SEO-conscious markup baked in from day one. Fast, editable, and built different — not another cookie-cutter template.</p>
+            <span class="process-step-tag">Code &amp; motion</span>
+          </div>
+        </div>
+        <div class="process-step" data-step="3">
+          <div class="process-num">04</div>
+          <div>
+            <h3>Launch & Support</h3>
+            <p>Pre-launch QA across speed, accessibility, and SEO — no shortcuts, no "good enough." Post-launch I stay close. You get a site you can actually own, grow, and flex on your competitors with full confidence.</p>
+            <span class="process-step-tag">Shipped &amp; supported</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════
+     § 08 — CONTACT
+  ════════════════════════ -->
+  <section id="contact">
+    <div class="contact-deco-bg" aria-hidden="true">HI</div>
+
+    <div class="section-eyebrow" data-num="06" style="color:var(--accent)">Get in touch</div>
+
+    <h2 class="contact-big-head reveal-lines" data-reveal="lines" data-reveal-mode="scrub">
+      <span class="line">LET'S</span>
+      <span class="line"><span class="stroke">BUILD</span></span>
+      <span class="line">TOGETHER.</span>
+    </h2>
+    <p class="contact-sub">Ready to build something that actually goes hard? Slide into my inbox — I reply within 24 hours, no cap.</p>
+
+    <div class="contact-layout">
+      <div class="contact-info-col">
+        <div class="contact-row">
+          <div class="contact-cell">
+            <div class="contact-cell-label">Email</div>
+            <a href="/cdn-cgi/l/email-protection#7b1a13161a1f1912151a1d011a173b1c161a121755181416" class="contact-cell-val"><span class="__cf_email__" data-cfemail="f3929b9e9297919a9d929589929fb3949e929a9fdd909c9e">[email&#160;protected]</span></a>
+          </div>
+          <div class="contact-cell">
+            <div class="contact-cell-label">Phone</div>
+            <a href="tel:+923251771529" class="contact-cell-val">+92 325 177 1529</a>
+          </div>
+          <div class="contact-cell">
+            <div class="contact-cell-label">Location</div>
+            <span class="contact-cell-val">Islamabad, Pakistan</span>
+          </div>
+          <div class="contact-cell">
+            <div class="contact-cell-label">Availability</div>
+            <span class="contact-cell-val">Freelance & Full-Time</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-col">
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cf-name">Your Name</label>
+              <input type="text" id="cf-name" name="name" placeholder="Ahmad Afzal" required />
+            </div>
+            <div class="form-group">
+              <label for="cf-email">Email Address</label>
+              <input type="email" id="cf-email" name="email" placeholder="hello@company.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cf-subject">Subject</label>
+            <input type="text" id="cf-subject" name="subject" placeholder="WordPress site, redesign, SEO…" />
+          </div>
+          <div class="form-group">
+            <label for="cf-msg">Message</label>
+            <textarea id="cf-msg" name="message" placeholder="Tell me about your project — timeline, budget, goals…" required></textarea>
+          </div>
+          <div>
+            <button type="submit" class="form-submit">
+              Send Message
+              <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" /></svg>
+            </button>
+          </div>
+          <p class="form-note">I typically reply within 24 hours. All inquiries are confidential.</p>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <span>🎉</span>
+          <p>Message sent! I'll be in touch very soon.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-footer">
+      <span class="contact-copy">© 2025 Ahmad Bin Afzal. All rights reserved.</span>
+      <span class="contact-avail">AVAILABLE FOR FREELANCE</span>
+    </div>
+  </section>
+
+  <!-- ── SCRIPTS ── -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CustomEase.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger, CustomEase);
+    CustomEase.create('expo', 'M0,0 C0.16,1 0.3,1 1,1');
+    CustomEase.create('aw', 'M0,0 C0.25,1 0.5,1 1,1');
+
+    /* ── 1. LENIS smooth scroll ── */
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true, syncTouch: false,
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    /* ── 2. CUSTOM CURSOR ── */
+    const cur = document.getElementById('cur');
+    const curR = document.getElementById('curR');
+    let mx = 0, my = 0, fx = 0, fy = 0;
+    const isTouchDevice = 'ontouchstart' in window;
+    if (isTouchDevice) {
+      cur.style.display = curR.style.display = 'none';
+    } else {
+      window.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        gsap.to(cur, { x: mx, y: my, duration: .1, ease: 'power3.out', overwrite: true });
+      }, { passive: true });
+      (function rafLoop() {
+        fx += (mx - fx) * .1; fy += (my - fy) * .1;
+        gsap.set(curR, { x: fx, y: fy });
+        requestAnimationFrame(rafLoop);
+      })();
+      document.querySelectorAll('a, button, .wcard').forEach(el => {
+        el.addEventListener('mouseenter', () => { gsap.to(cur, { width: 5, height: 5, duration: .25 }); gsap.to(curR, { width: 60, height: 60, duration: .3 }); });
+        el.addEventListener('mouseleave', () => { gsap.to(cur, { width: 10, height: 10, duration: .25 }); gsap.to(curR, { width: 38, height: 38, duration: .3 }); });
+      });
+    }
+
+    /* ── 3. WORD/LINE SPLITTER (375.studio style) ── */
+    function splitWords(el) {
+      const text = el.textContent.trim();
+      // Preserve inline html like <span class="italic">
+      const html = el.innerHTML;
+      // Use a temp div to walk and split each text node by words while preserving spans
+      const temp = document.createElement('div');
+      temp.innerHTML = html;
+      const wrapText = (node) => {
+        const frag = document.createDocumentFragment();
+        const parts = node.textContent.split(/(\s+)/);
+        parts.forEach(part => {
+          if (part === '' ) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          const wordWrap = document.createElement('span');
+          wordWrap.className = 'word';
+          const inner = document.createElement('i');
+          inner.textContent = part;
+          wordWrap.appendChild(inner);
+          frag.appendChild(wordWrap);
+        });
+        node.parentNode.replaceChild(frag, node);
+      };
+      const walk = (node) => {
+        const children = Array.from(node.childNodes);
+        children.forEach(child => {
+          if (child.nodeType === 3) { wrapText(child); }
+          else if (child.nodeType === 1) { walk(child); }
+        });
+      };
+      walk(temp);
+      el.innerHTML = temp.innerHTML;
+    }
+
+    function splitLines(el) {
+      // For lines mode, we already wrote .line spans; just wrap their content in <i>
+      el.querySelectorAll('.line').forEach(line => {
+        if (line.querySelector('i')) return;
+        const inner = document.createElement('i');
+        inner.innerHTML = line.innerHTML;
+        line.innerHTML = '';
+        line.appendChild(inner);
+      });
+    }
+
+    document.querySelectorAll('[data-reveal="words"]').forEach(splitWords);
+    document.querySelectorAll('[data-reveal="lines"]').forEach(splitLines);
+
+    /* Reveal on scroll — 375.studio look: plays forward on scroll-down, reverses on scroll-up
+       Elements with data-reveal-mode="scrub" tie the animation to scroll position so it reverses smoothly. */
+    function setupReveals() {
+      document.querySelectorAll('[data-reveal="words"]').forEach(el => {
+        const targets = el.querySelectorAll('.word i');
+        const isScrub = el.dataset.revealMode === 'scrub';
+        if (isScrub) {
+          gsap.fromTo(targets,
+            { y: '110%', opacity: 0 },
+            {
+              y: '0%', opacity: 1, ease: 'power2.out',
+              stagger: { each: .035 },
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 92%',
+                end: 'top 35%',
+                scrub: 1.1,
+              }
+            }
+          );
+        } else {
+          gsap.fromTo(targets,
+            { y: '110%', opacity: 0 },
+            {
+              y: '0%', opacity: 1, duration: 1.1, ease: 'expo',
+              stagger: { each: .045 },
+              scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play reverse play reverse' }
+            }
+          );
+        }
+      });
+      document.querySelectorAll('[data-reveal="lines"]').forEach(el => {
+        const targets = el.querySelectorAll('.line i');
+        const isScrub = el.dataset.revealMode === 'scrub';
+        if (isScrub) {
+          gsap.fromTo(targets,
+            { y: '110%', opacity: 0 },
+            {
+              y: '0%', opacity: 1, ease: 'power2.out',
+              stagger: { each: .12 },
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 92%',
+                end: 'top 30%',
+                scrub: 1.1,
+              }
+            }
+          );
+        } else {
+          gsap.fromTo(targets,
+            { y: '110%', opacity: 0 },
+            {
+              y: '0%', opacity: 1, duration: 1.2, ease: 'expo',
+              stagger: { each: .09 },
+              scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play reverse play reverse' }
+            }
+          );
+        }
+      });
+
+      /* Extra: scrub-fade for tags, bios, copy blocks — plays on scroll down AND up */
+      gsap.utils.toArray('[data-scrub-fade]').forEach(el => {
+        gsap.fromTo(el,
+          { y: 40, opacity: 0 },
+          {
+            y: 0, opacity: 1, ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 92%',
+              end: 'top 60%',
+              scrub: 1.1,
+            }
+          }
+        );
+      });
+    }
+
+    /* ── 4. LOADER ── */
+    const loader = document.getElementById('loader');
+    const lPct = document.getElementById('lPct');
+    const lBar = document.getElementById('lBar');
+    let pctVal = { v: 0 };
+
+    const tlLoad = gsap.timeline({ onComplete: initHero });
+
+    gsap.to(pctVal, {
+      v: 100, duration: 1.9, ease: 'power2.inOut',
+      onUpdate() {
+        if (lPct) lPct.textContent = Math.round(pctVal.v) + '%';
+        if (lBar) lBar.style.width = pctVal.v + '%';
+      }
+    });
+
+    tlLoad
+      .from('#lWordA', { y: 80, opacity: 0, duration: .9, ease: 'expo' }, 0)
+      .from('#loaderDot', { scale: 0, opacity: 0, duration: .6, ease: 'back.out(2)' }, .25)
+      .from('#lWordB', { y: 80, opacity: 0, duration: .9, ease: 'expo' }, .35)
+      .from('.loader-tagline', { y: 20, opacity: 0, duration: .6, ease: 'expo' }, .6)
+      .to(loader, { yPercent: -100, duration: 1.0, ease: 'power3.inOut', delay: .55 });
+
+    /* ── 5. HERO INIT (only after loader) ── */
+    function initHero() {
+      gsap.to('.greet-label', { opacity: 1, duration: .6, ease: 'expo', delay: .1 });
+      // Hero name char-mask reveal (375.studio style)
+      gsap.fromTo('.hero-name .char-mask > span',
+        { y: '110%' }, { y: '0%', duration: 1.1, ease: 'expo', stagger: .08, delay: .15 });
+      gsap.from('.greet-text', { y: 30, opacity: 0, duration: .9, ease: 'expo', delay: .15 });
+      gsap.from('.d-row', { y: 110, opacity: 0, stagger: .13, duration: 1.3, ease: 'expo', delay: .2 });
+      gsap.from('#circleWrap', { scale: .6, opacity: 0, duration: 1.3, ease: 'elastic.out(1,.55)', delay: .5 });
+      gsap.from('#modelWrap', { y: 130, opacity: 0, duration: 1.4, ease: 'expo', delay: .4 });
+      gsap.from('.v-nav a', { opacity: 0, x: 18, stagger: .1, duration: .8, ease: 'expo', delay: .8 });
+      gsap.from(['.tagline', '.social', '.scroll-hint'], { opacity: 0, y: 18, stagger: .1, duration: .7, ease: 'expo', delay: .9 });
+      startParallax();
+      startTyper();
+      setupReveals();
+      initScrollAnimations();
+    }
+
+    /* ── 6. GREETING TYPER ── */
+    function startTyper() {
+      const greetEl = document.getElementById('greetEl');
+      if (!greetEl) return;
+      const words = ['HOLA', 'SALAM', 'HELLO', 'AHLAN', 'BONJOUR', 'HEY'];
+      let wi = 0, ci = 0, del = false;
+      const cursor = greetEl.querySelector('.tcursor');
+      function tick() {
+        const w = words[wi];
+        const text = greetEl.childNodes[0];
+        if (!text || text.nodeType !== 3) { greetEl.insertBefore(document.createTextNode(''), cursor); }
+        const textNode = greetEl.childNodes[0];
+        if (!del) {
+          textNode.textContent = w.slice(0, ++ci);
+          if (ci === w.length) { del = true; setTimeout(tick, 1400); return; }
+        } else {
+          textNode.textContent = w.slice(0, --ci);
+          if (ci === 0) { del = false; wi = (wi + 1) % words.length; }
+        }
+        setTimeout(tick, del ? 55 : 105);
+      }
+      setTimeout(tick, 1600);
+    }
+
+    /* ── 7. HERO PARALLAX ── */
+    function startParallax() {
+      document.getElementById('hero').addEventListener('mousemove', e => {
+        const dx = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+        const dy = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+        gsap.to('.d-row.r1', { x: dx * 14, y: dy * 7, duration: 1.8, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to('.d-row.r2', { x: dx * 8, y: dy * 4, duration: 1.8, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to('.d-row.r3', { x: dx * 4, y: dy * 2, duration: 1.8, ease: 'power2.out', overwrite: 'auto' });
+        gsap.to('#modelImg', { x: dx * 6, duration: 2.2, ease: 'power1.out', overwrite: 'auto' });
+      }, { passive: true });
+    }
+
+    /* ── 8. SCROLL ANIMATIONS ── */
+    function initScrollAnimations() {
+      /* About — scrub-based reveal so it reverses on scroll-up */
+      gsap.utils.toArray(['#about .section-eyebrow', '.about-bio', '.about-tags']).forEach(el => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0 },
+          {
+            y: 0, opacity: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 55%', scrub: 1.1 }
+          }
+        );
+      });
+
+      gsap.utils.toArray('.js-about-line').forEach(path => {
+        const len = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+        gsap.to(path, {
+          strokeDashoffset: 0, ease: 'none',
+          scrollTrigger: { trigger: '#about', start: 'top 78%', end: 'bottom 42%', scrub: 1.1 }
+        });
+      });
+
+      gsap.utils.toArray('.stat-row').forEach((row, i) => {
+        gsap.fromTo(row,
+          { y: 50, opacity: 0 },
+          {
+            y: 0, opacity: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: row, start: 'top 92%', end: 'top 65%', scrub: 1.1 }
+          }
+        );
+      });
+
+      /* Count-up numbers — fires forward AND reverses */
+      document.querySelectorAll('.stat-num .n').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const obj = { v: 0 };
+        const tw = gsap.to(obj, {
+          v: target, ease: 'power2.out', paused: true,
+          onUpdate() { el.textContent = Math.round(obj.v); }
+        });
+        ScrollTrigger.create({
+          trigger: el, start: 'top 88%', end: 'top 50%',
+          onEnter: () => tw.play(),
+          onLeaveBack: () => { tw.pause(0); obj.v = 0; el.textContent = '0'; }
+        });
+      });
+
+      gsap.utils.toArray('.about-tag').forEach((tag, i) => {
+        gsap.fromTo(tag,
+          { y: 16, opacity: 0, scale: .92 },
+          {
+            y: 0, opacity: 1, scale: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: '.about-tags', start: 'top 92%', end: 'top 70%', scrub: 1.1 }
+          }
+        );
+      });
+
+      /* Skills intro — scrub reveal */
+      gsap.utils.toArray(['#skills .section-eyebrow', '.skills-copy', '.skills-detail']).forEach(el => {
+        gsap.fromTo(el,
+          { y: 48, opacity: 0 },
+          {
+            y: 0, opacity: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 60%', scrub: 1.1 }
+          }
+        );
+      });
+
+      const skillsSection = document.getElementById('skills');
+      const skillItems = gsap.utils.toArray('.skill-item');
+      const skillsBgWord = document.getElementById('skillsBgWord');
+      const skillsDetailTitle = document.getElementById('skillsDetailTitle');
+      const skillsDetailMeta = document.getElementById('skillsDetailMeta');
+      const skillsDetailCopy = document.getElementById('skillsDetailCopy');
+
+      if (skillsSection && skillItems.length) {
+        let activeSkillIndex = 0;
+        let hoverSkillIndex = null;
+        let renderedPanelIndex = -1;
+
+        const updateSkillPanel = (force = false) => {
+          const index = hoverSkillIndex ?? activeSkillIndex;
+          if (!force && index === renderedPanelIndex) return;
+          renderedPanelIndex = index;
+          const item = skillItems[index];
+          skillsDetailTitle.textContent = item.dataset.title || '';
+          skillsDetailMeta.textContent = item.dataset.meta || '';
+          skillsDetailCopy.textContent = item.dataset.desc || '';
+          skillsBgWord.textContent = item.dataset.bg || '';
+          gsap.fromTo([skillsBgWord, skillsDetailTitle, skillsDetailMeta, skillsDetailCopy],
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: .35, stagger: .03, ease: 'power2.out', overwrite: true }
+          );
+        };
+
+        const renderSkills = progress => {
+          const spread = window.innerHeight < 800 ? 118 : 142;
+          const floatIndex = progress * (skillItems.length - 1);
+          activeSkillIndex = Math.max(0, Math.min(skillItems.length - 1, Math.round(floatIndex)));
+          skillItems.forEach((item, i) => {
+            const delta = i - floatIndex;
+            const distance = Math.abs(delta);
+            const scale = Math.max(.76, 1.08 - distance * .16);
+            const opacity = Math.max(.14, 1 - distance * .28);
+            const blur = Math.max(0, (distance - .15) * 4.2);
+            const rotate = delta * -3.5;
+            const y = delta * spread;
+            gsap.set(item, { xPercent: -50, yPercent: -50, y, scale, opacity, rotate, filter: `blur(${blur}px)` });
+            item.classList.toggle('is-active', i === activeSkillIndex);
+            item.classList.toggle('is-hover', i === hoverSkillIndex);
+            item.style.zIndex = String(200 - Math.round(distance * 20));
+          });
+          updateSkillPanel();
+        };
+
+        renderSkills(0);
+
+        skillItems.forEach((item, index) => {
+          item.addEventListener('mouseenter', () => { hoverSkillIndex = index; updateSkillPanel(true); skillItems.forEach((c, i) => c.classList.toggle('is-hover', i === index)); });
+          item.addEventListener('mouseleave', () => { hoverSkillIndex = null; skillItems.forEach(c => c.classList.remove('is-hover')); updateSkillPanel(true); });
+        });
+
+        ScrollTrigger.create({
+          trigger: skillsSection, start: 'top top',
+          end: () => '+=' + window.innerHeight * (skillItems.length * .82),
+          scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+          onUpdate: self => renderSkills(self.progress)
+        });
+      }
+
+      /* WORKS — horizontal pinned scroll (v2 style) */
+      const worksSection = document.getElementById('works');
+      const worksTrack = document.getElementById('worksTrack');
+      const wProg = document.getElementById('wProg');
+      if (worksSection && worksTrack) {
+        const getScrollDist = () => Math.max(0, worksTrack.scrollWidth - window.innerWidth);
+        ScrollTrigger.create({
+          trigger: worksSection, start: 'top top',
+          end: () => '+=' + getScrollDist(),
+          scrub: 1.5, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+          onUpdate(self) { if (wProg) wProg.style.width = (self.progress * 100) + '%'; }
+        });
+        gsap.to(worksTrack, {
+          x: () => -getScrollDist(), ease: 'none',
+          scrollTrigger: {
+            trigger: worksSection, start: 'top top',
+            end: () => '+=' + getScrollDist(),
+            scrub: 1.5, invalidateOnRefresh: true
+          }
+        });
+      }
+
+      /* Process — true sticky pin with active step indicator */
+      const processSection = document.getElementById('process');
+      const processSteps = gsap.utils.toArray('.process-step');
+      const indicatorItems = gsap.utils.toArray('.process-indicator-item');
+
+      const setActiveStep = (index) => {
+        processSteps.forEach((step, i) => {
+          step.classList.toggle('step-dim', i !== index);
+        });
+        indicatorItems.forEach((item, i) => {
+          item.classList.toggle('is-active', i === index);
+        });
+      };
+
+      if (processSection && processSteps.length) {
+        processSteps.forEach((step, i) => {
+          ScrollTrigger.create({
+            trigger: step,
+            start: 'top center',
+            end: 'bottom center',
+            onEnter: () => setActiveStep(i),
+            onEnterBack: () => setActiveStep(i),
+          });
+        });
+      }
+
+      gsap.utils.toArray('.process-step').forEach(step => {
+        gsap.fromTo(step,
+          { y: 60, opacity: 0 },
+          {
+            y: 0, opacity: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: step, start: 'top 90%', end: 'top 55%', scrub: 1.1 }
+          }
+        );
+      });
+      gsap.utils.toArray(['#process .section-eyebrow', '.process-copy', '.process-indicator']).forEach(el => {
+        gsap.fromTo(el,
+          { y: 40, opacity: 0 },
+          {
+            y: 0, opacity: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 92%', end: 'top 60%', scrub: 1.1 }
+          }
+        );
+      });
+
+      /* Contact — scrub reveal */
+      gsap.utils.toArray('.contact-cell').forEach(cell => {
+        gsap.fromTo(cell,
+          { y: 36, opacity: 0 },
+          {
+            y: 0, opacity: 1, ease: 'power2.out',
+            scrollTrigger: { trigger: cell, start: 'top 92%', end: 'top 70%', scrub: 1.1 }
+          }
+        );
+      });
+      gsap.fromTo('.contact-form',
+        { x: 40, opacity: 0 },
+        {
+          x: 0, opacity: 1, ease: 'power2.out',
+          scrollTrigger: { trigger: '.contact-form', start: 'top 90%', end: 'top 60%', scrub: 1.1 }
+        }
+      );
+      gsap.from('.contact-footer', {
+        opacity: 0, y: 16, duration: .7, ease: 'expo',
+        scrollTrigger: { trigger: '.contact-footer', start: 'top 95%', toggleActions: 'play reverse play reverse' }
+      });
+
+      /* Manifesto subtle parallax + bg word drift */
+      gsap.to('.manifesto-statement', {
+        yPercent: -6, ease: 'none',
+        scrollTrigger: { trigger: '#manifesto', start: 'top bottom', end: 'bottom top', scrub: 1 }
+      });
+      gsap.to('.manifesto-bg-word', {
+        xPercent: -8, ease: 'none',
+        scrollTrigger: { trigger: '#manifesto', start: 'top bottom', end: 'bottom top', scrub: 1.4 }
+      });
+
+      /* Marquee subtle scrub speed (extra text-motion flavour) */
+      gsap.to('.marquee-track', {
+        xPercent: -6, ease: 'none',
+        scrollTrigger: { trigger: '#marquee-strip', start: 'top bottom', end: 'bottom top', scrub: 1.3 }
+      });
+    }
+
+    /* ── 9. NAV SMOOTH-SCROLL ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { duration: 1.3, offset: 0 }); }
+      });
+    });
+
+    /* ── 10. CONTACT FORM ── */
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const form = this;
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      setTimeout(() => {
+        form.style.display = 'none';
+        document.getElementById('formSuccess').style.display = 'block';
+      }, 1200);
+    });
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4edd5f8ec12a48cfa682ab8261b80a79","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+</html>

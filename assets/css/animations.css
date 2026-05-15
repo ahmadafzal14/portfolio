@@ -1,0 +1,61 @@
+/* ============================================
+   ANIMATIONS — KEYFRAMES & GSAP HELPERS
+   ============================================ */
+
+/* Subtle float for the model */
+@keyframes modelFloat {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-18px);
+  }
+}
+
+/* CSS fallback for circle pulse (GSAP takes over in JS) */
+@keyframes circlePulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+/* Cursor blink for typing effect */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--text);
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: cursorBlink 0.75s step-end infinite;
+}
+
+/* Glitch flicker on hover for name */
+@keyframes glitchShift {
+  0%   { clip-path: inset(0 0 90% 0); transform: skewX(-5deg) translateX(2px); }
+  20%  { clip-path: inset(30% 0 50% 0); transform: skewX(3deg) translateX(-3px); }
+  40%  { clip-path: inset(60% 0 20% 0); transform: skewX(-2deg) translateX(2px); }
+  60%  { clip-path: inset(10% 0 70% 0); transform: skewX(4deg) translateX(-2px); }
+  80%  { clip-path: inset(80% 0 5% 0); transform: skewX(-3deg) translateX(3px); }
+  100% { clip-path: inset(0 0 0 0); transform: skewX(0) translateX(0); }
+}
+
+/* ============================================
+   TRANSITIONS PAGE
+   ============================================ */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: var(--accent);
+  z-index: 9980;
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
