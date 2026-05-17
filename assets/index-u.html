@@ -3200,98 +3200,69 @@
         padding: 48px 0;
       }
 
-      /* ── SKILLS SECTION — sticky scroll restored, fits inside 100vh ── */
-
-      /* Keep 100vh pin so the scroll-through works exactly like desktop */
+      /* ── SKILLS SECTION — fully responsive on mobile ── */
       #skills {
-        height: 100vh;
-        overflow: hidden;
+        height: auto;
+        min-height: auto;
+        overflow: visible;
       }
 
-      /* Shell: vertical flex so intro + stage + detail all fit in 100vh */
       .skills-shell {
+        padding: 80px 20px 60px;
         display: flex;
         flex-direction: column;
-        padding: 36px 20px 14px;
         gap: 0;
-        height: 100%;
-        align-items: stretch;
-        /* override the 1100px single-column grid */
-        grid-template-columns: none;
+        min-height: auto;
       }
 
-      /* Intro — compact; hide body copy to reclaim height */
       .skills-intro {
-        flex-shrink: 0;
-        max-width: 100%;
-        margin-bottom: 8px;
+        order: 1;
+        margin-bottom: 32px;
       }
 
-      .skills-copy {
-        display: none;
-      }
-
-      .skills-title {
-        font-size: clamp(36px, 10.5vw, 60px) !important;
-        line-height: .9;
-        margin-bottom: 0;
-      }
-
-      /* Stage — grows to fill remaining space between intro and detail */
       .skills-stage {
-        flex: 1;
-        min-height: 0;
-        height: auto;
-        max-height: none;
+        order: 2;
+        height: 52vw;
+        min-height: 260px;
+        max-height: 360px;
+        margin-bottom: 24px;
       }
 
-      /* Skill cards — narrower to fit phone width */
+      /* Make skill-items narrower so they fit mobile */
       .skill-item {
-        width: clamp(210px, 80vw, 330px);
-        padding: 14px 16px;
+        width: clamp(220px, 82vw, 340px);
+        padding: 18px 20px;
       }
 
       .skill-label {
-        font-size: clamp(17px, 5.2vw, 26px);
+        font-size: clamp(18px, 5vw, 28px);
       }
 
-      /* Ghost word — clamp so it never bleeds right */
-      .skills-bg-active {
-        font-size: clamp(60px, 18vw, 120px);
-        white-space: nowrap;
-        overflow: hidden;
-        max-width: 100%;
-      }
-
-      /* Detail panel — pinned at bottom of shell, always in viewport */
+      /* Detail panel: show BELOW the stage, full width */
       .skills-detail {
-        flex-shrink: 0;
+        order: 3;
         max-width: 100%;
-        padding: 12px 14px;
-        margin-top: 6px;
+        margin-top: 8px;
+        padding: 22px 20px;
+        /* ensure it is always visible */
         opacity: 1 !important;
         transform: none !important;
       }
 
-      .skills-detail-title {
-        font-size: clamp(16px, 5vw, 24px);
-        margin: 6px 0 3px;
-      }
-
-      .skills-detail-copy {
-        font-size: 12px;
-        line-height: 1.55;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+      /* bg active word — clip so it doesn't overflow */
+      .skills-bg-active {
+        font-size: clamp(80px, 22vw, 160px);
+        white-space: nowrap;
         overflow: hidden;
+        max-width: 100%;
       }
     }
 
+    /* ── SKILLS MOBILE STATIC LIST (< 480px extra safety) ── */
     @media (max-width: 480px) {
       .skill-item {
-        width: 82vw;
-        padding: 11px 13px;
+        width: 78vw;
+        padding: 14px 16px;
       }
 
       .model-img {
@@ -4474,7 +4445,7 @@
         );
       });
 
-      /* Skills intro — scrub reveal (desktop only; on mobile detail is always visible via CSS) */
+      /* Skills intro — scrub reveal */
       gsap.utils.toArray(['#skills .section-eyebrow', '.skills-copy']).forEach(el => {
         gsap.fromTo(el,
           { y: 48, opacity: 0 },
@@ -4484,6 +4455,7 @@
           }
         );
       });
+      /* skills-detail: only animate on desktop; on mobile it must stay visible */
       if (window.innerWidth > 760) {
         gsap.fromTo('.skills-detail',
           { y: 48, opacity: 0 },
@@ -4548,16 +4520,17 @@
           item.addEventListener('mouseleave', () => { hoverSkillIndex = null; skillItems.forEach(c => c.classList.remove('is-hover')); updateSkillPanel(true); });
         });
 
-        /* Pin on ALL screen sizes — mobile gets same scroll-through experience */
-        ScrollTrigger.create({
-          trigger: skillsSection, start: 'top top',
-          end: () => '+=' + window.innerHeight * (skillItems.length * .82),
-          scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
-          onUpdate: self => renderSkills(self.progress)
-        });
-
-        /* On mobile ensure detail panel stays visible after GSAP sets up */
-        if (window.innerWidth <= 760) {
+        /* Desktop: full pinned scroll experience */
+        if (window.innerWidth > 760) {
+          ScrollTrigger.create({
+            trigger: skillsSection, start: 'top top',
+            end: () => '+=' + window.innerHeight * (skillItems.length * .82),
+            scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+            onUpdate: self => renderSkills(self.progress)
+          });
+        } else {
+          /* Mobile: no pin — first skill centred, detail panel visible below */
+          renderSkills(0);
           const detailEl = document.getElementById('skillsDetail');
           if (detailEl) { detailEl.style.opacity = '1'; detailEl.style.transform = 'none'; }
         }

@@ -3110,194 +3110,6 @@
       .manifesto-statement {
         font-size: 38px;
       }
-
-      /* ── MODEL IMAGE — make it large and visible on mobile ── */
-      .model-img {
-        width: clamp(320px, 88vw, 540px);
-        height: clamp(320px, 88vw, 540px);
-        max-width: none; /* override global img { max-width:100% } */
-      }
-
-      .model-wrap {
-        left: 50%;
-      }
-
-      /* ── PREVENT TEXT OVERFLOW RIGHT SIDE ── */
-      /* stat rows: hide badge, tighten grid */
-      .stat-badge {
-        display: none;
-      }
-
-      .stat-row {
-        grid-template-columns: auto 1fr;
-        gap: 12px;
-      }
-
-      .stat-num {
-        min-width: 110px;
-        font-size: clamp(48px, 14vw, 80px);
-      }
-
-      /* about bio & headline fit */
-      .about-bio {
-        max-width: 100%;
-      }
-
-      /* beyond title clip */
-      .beyond-title {
-        font-size: clamp(56px, 14vw, 120px);
-      }
-
-      /* beyond-intro padding */
-      .beyond-intro {
-        padding: 0 24px 60px;
-      }
-
-      /* contact layout padding */
-      #contact {
-        padding: 100px 20px;
-      }
-
-      .contact-deco-bg {
-        font-size: clamp(120px, 40vw, 220px);
-        overflow: hidden;
-      }
-
-      /* hero header name doesn't overflow */
-      .hero-name span {
-        font-size: 16px;
-      }
-
-      /* fix greet text min-width */
-      .greet-text {
-        min-width: 80px;
-        font-size: 20px;
-      }
-
-      /* social: keep right-positioned on mobile */
-      .social {
-        left: auto;
-        right: 24px;
-        bottom: 24px;
-      }
-
-      .tagline {
-        left: 24px;
-        bottom: 24px;
-      }
-
-      .scroll-hint {
-        left: 50%;
-        right: auto;
-        bottom: 24px;
-        transform: translateX(-50%);
-      }
-
-      /* process step grid */
-      .process-step {
-        grid-template-columns: 48px 1fr;
-        gap: 14px;
-        padding: 48px 0;
-      }
-
-      /* ── SKILLS SECTION — sticky scroll restored, fits inside 100vh ── */
-
-      /* Keep 100vh pin so the scroll-through works exactly like desktop */
-      #skills {
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      /* Shell: vertical flex so intro + stage + detail all fit in 100vh */
-      .skills-shell {
-        display: flex;
-        flex-direction: column;
-        padding: 36px 20px 14px;
-        gap: 0;
-        height: 100%;
-        align-items: stretch;
-        /* override the 1100px single-column grid */
-        grid-template-columns: none;
-      }
-
-      /* Intro — compact; hide body copy to reclaim height */
-      .skills-intro {
-        flex-shrink: 0;
-        max-width: 100%;
-        margin-bottom: 8px;
-      }
-
-      .skills-copy {
-        display: none;
-      }
-
-      .skills-title {
-        font-size: clamp(36px, 10.5vw, 60px) !important;
-        line-height: .9;
-        margin-bottom: 0;
-      }
-
-      /* Stage — grows to fill remaining space between intro and detail */
-      .skills-stage {
-        flex: 1;
-        min-height: 0;
-        height: auto;
-        max-height: none;
-      }
-
-      /* Skill cards — narrower to fit phone width */
-      .skill-item {
-        width: clamp(210px, 80vw, 330px);
-        padding: 14px 16px;
-      }
-
-      .skill-label {
-        font-size: clamp(17px, 5.2vw, 26px);
-      }
-
-      /* Ghost word — clamp so it never bleeds right */
-      .skills-bg-active {
-        font-size: clamp(60px, 18vw, 120px);
-        white-space: nowrap;
-        overflow: hidden;
-        max-width: 100%;
-      }
-
-      /* Detail panel — pinned at bottom of shell, always in viewport */
-      .skills-detail {
-        flex-shrink: 0;
-        max-width: 100%;
-        padding: 12px 14px;
-        margin-top: 6px;
-        opacity: 1 !important;
-        transform: none !important;
-      }
-
-      .skills-detail-title {
-        font-size: clamp(16px, 5vw, 24px);
-        margin: 6px 0 3px;
-      }
-
-      .skills-detail-copy {
-        font-size: 12px;
-        line-height: 1.55;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .skill-item {
-        width: 82vw;
-        padding: 11px 13px;
-      }
-
-      .model-img {
-        width: 92vw;
-        height: 92vw;
-      }
     }
   </style>
 </head>
@@ -4474,8 +4286,8 @@
         );
       });
 
-      /* Skills intro — scrub reveal (desktop only; on mobile detail is always visible via CSS) */
-      gsap.utils.toArray(['#skills .section-eyebrow', '.skills-copy']).forEach(el => {
+      /* Skills intro — scrub reveal */
+      gsap.utils.toArray(['#skills .section-eyebrow', '.skills-copy', '.skills-detail']).forEach(el => {
         gsap.fromTo(el,
           { y: 48, opacity: 0 },
           {
@@ -4484,15 +4296,6 @@
           }
         );
       });
-      if (window.innerWidth > 760) {
-        gsap.fromTo('.skills-detail',
-          { y: 48, opacity: 0 },
-          {
-            y: 0, opacity: 1, ease: 'power2.out',
-            scrollTrigger: { trigger: '.skills-detail', start: 'top 92%', end: 'top 60%', scrub: 1.1 }
-          }
-        );
-      }
 
       const skillsSection = document.getElementById('skills');
       const skillItems = gsap.utils.toArray('.skill-item');
@@ -4548,19 +4351,12 @@
           item.addEventListener('mouseleave', () => { hoverSkillIndex = null; skillItems.forEach(c => c.classList.remove('is-hover')); updateSkillPanel(true); });
         });
 
-        /* Pin on ALL screen sizes — mobile gets same scroll-through experience */
         ScrollTrigger.create({
           trigger: skillsSection, start: 'top top',
           end: () => '+=' + window.innerHeight * (skillItems.length * .82),
           scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
           onUpdate: self => renderSkills(self.progress)
         });
-
-        /* On mobile ensure detail panel stays visible after GSAP sets up */
-        if (window.innerWidth <= 760) {
-          const detailEl = document.getElementById('skillsDetail');
-          if (detailEl) { detailEl.style.opacity = '1'; detailEl.style.transform = 'none'; }
-        }
       }
 
       /* WORKS — horizontal pinned scroll (v2 style) */
