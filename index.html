@@ -3049,12 +3049,15 @@
 
     @media (max-width: 760px) {
 
-      #hero,
       #manifesto,
       #about,
       #process,
       #contact {
         padding: 100px 24px;
+      }
+
+      #hero {
+        padding: 0px 24px;
       }
 
       .hero-hdr {
@@ -3115,7 +3118,8 @@
       .model-img {
         width: clamp(320px, 88vw, 540px);
         height: clamp(320px, 88vw, 540px);
-        max-width: none; /* override global img { max-width:100% } */
+        max-width: none;
+        /* override global img { max-width:100% } */
       }
 
       .model-wrap {
